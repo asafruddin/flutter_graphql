@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_graphql_architecture/view/login/login_page.dart';
 import 'package:get/route_manager.dart';
 
 class MyApp extends StatelessWidget {
@@ -6,12 +7,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Hello World"),
-        ),
-      ),
-    );
+    return GetMaterialApp(locale: Get.deviceLocale, home: const LoginPage());
   }
 }
