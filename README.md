@@ -1,5 +1,3 @@
-# flutter_graphql
-Flutter architecture with graphql
 # flutter_graphql_architecture
 
 A new Flutter project.
