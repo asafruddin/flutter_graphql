@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Hello World"),
+          title: const Text("Hello World"),
         ),
       ),
     );
