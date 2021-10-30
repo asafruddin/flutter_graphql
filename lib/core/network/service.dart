@@ -1,10 +1,7 @@
 import 'package:graphql/client.dart';
 
 class GraphQlServices {
-  HttpLink httplink = HttpLink('https://graphql.fauna.com/graphql',
-      defaultHeaders: {
-        'Authorization': 'Bearer fnAES-Iy9ZACTMT6YDB0aPhbhyUnyktnXpMvmJWG'
-      });
+  HttpLink httplink = HttpLink('https://rickandmortyapi.com/graphql');
   late final GraphQLClient _client =
       GraphQLClient(link: httplink, cache: GraphQLCache());
 
@@ -14,7 +11,6 @@ class GraphQlServices {
         QueryOptions(document: gql(query), variables: variables ?? {});
 
     final result = await _client.query(options);
-
     return result;
   }
 

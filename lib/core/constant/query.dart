@@ -1,12 +1,19 @@
 class Query {
   Query._();
 
-  static const spaceships = r'''
-  query{
-    spaceships {
-      data {
-        _id
+  static const characters = r'''
+  query characters($page: Int){
+  characters(page: $page){
+    results{
+      id
+      name
+      status
+      image
+      location{
+        id
         name
+        dimension
+        }
       }
     }
   }
