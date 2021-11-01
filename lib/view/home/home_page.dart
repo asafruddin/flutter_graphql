@@ -53,27 +53,31 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text("Home")),
-        body: PagedListView(
-            pagingController: pagingController,
-            builderDelegate: PagedChildBuilderDelegate<ResultsEntity>(
-                itemBuilder: (context, item, index) {
-              return ListTile(
-                  onTap: () => Get.to(() => DetailCharacters()),
-                  leading:
-                      CircleAvatar(backgroundImage: NetworkImage(item.image!)),
-                  subtitle: Text(item.location!.name!),
-                  trailing: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 5),
-                      decoration: BoxDecoration(
-                          color: Colors.lightGreenAccent[700],
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Text(item.status!,
-                          style: Theme.of(context)
-                              .textTheme
-                              .caption!
-                              .copyWith(color: Colors.white))),
-                  title: Text(item.name!));
-            })));
+        body: RefreshIndicator(
+            onRefresh: () => Future.sync(() => pagingController.refresh()),
+            child: PagedListView(
+                pagingController: pagingController,
+                builderDelegate: PagedChildBuilderDelegate<ResultsEntity>(
+                    itemBuilder: (context, item, index) {
+                  return ListTile(
+                      onTap: () => Get.to(() => DetailCharacters(
+                            id: item.id ?? "",
+                          )),
+                      leading: CircleAvatar(
+                          backgroundImage: NetworkImage(item.image!)),
+                      subtitle: Text(item.location!.name!),
+                      trailing: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.lightGreenAccent[700],
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Text(item.status!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption!
+                                  .copyWith(color: Colors.white))),
+                      title: Text(item.name!));
+                }))));
   }
 }

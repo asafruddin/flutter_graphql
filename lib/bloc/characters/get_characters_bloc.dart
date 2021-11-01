@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter_graphql_architecture/domain/entity/character_entity/characters_entity.dart';
-import 'package:flutter_graphql_architecture/domain/use_case/get_characters_use_case.dart';
+import 'package:flutter_graphql_architecture/domain/use_case/characters/get_characters_use_case.dart';
 import 'package:rxdart/rxdart.dart';
 
 class GetCharactersBloc {
