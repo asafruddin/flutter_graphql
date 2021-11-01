@@ -13,8 +13,6 @@ class BindingRemote implements BindingDataSources {
     final response =
         await _client.performQuery(Query.characters, variables: {"page": page});
 
-    print(response.data);
-
     yield CharactersModel.fromJson(response.data!);
   }
 }

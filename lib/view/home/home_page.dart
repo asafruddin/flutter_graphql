@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_graphql_architecture/bloc/characters/get_characters_bloc.dart';
 import 'package:flutter_graphql_architecture/core/di/injector_container.dart';
 import 'package:flutter_graphql_architecture/domain/entity/character_entity/characters_entity.dart';
+import 'package:flutter_graphql_architecture/view/character/detail_characters.dart';
+import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,7 +25,7 @@ class _HomePageState extends State<HomePage> {
 
       int i = 0;
       charactersBloc.data.listen((event) {
-        if (event != null && i == 0) {
+        if (event.characters.results != null && i == 0) {
           i++;
           final isLastPage = event.characters.isLastPage();
           final newItems = event.characters.results;
@@ -56,6 +58,7 @@ class _HomePageState extends State<HomePage> {
             builderDelegate: PagedChildBuilderDelegate<ResultsEntity>(
                 itemBuilder: (context, item, index) {
               return ListTile(
+                  onTap: () => Get.to(() => DetailCharacters()),
                   leading:
                       CircleAvatar(backgroundImage: NetworkImage(item.image!)),
                   subtitle: Text(item.location!.name!),
