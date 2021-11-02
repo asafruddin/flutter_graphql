@@ -13,7 +13,10 @@ import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 Future<void> init() async {
+  /// initialisation local storage
   final prefs = await SharedPrefs.getInstance();
+
+  /// initialization graphql services [network]
   final gqlService = GraphQlServices();
 
   ///register local storage
