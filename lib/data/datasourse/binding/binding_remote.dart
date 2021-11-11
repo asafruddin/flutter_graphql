@@ -7,9 +7,11 @@ import 'package:flutter_graphql_architecture/domain/entity/character_entity/char
 import 'package:flutter_graphql_architecture/domain/entity/character_entity/characters_entity.dart';
 
 class BindingRemote implements BindingDataSources {
+  /// [BindingRemote] for geting data from network
+  /// required GraphQlServices
   final GraphQlServices _client;
-
   BindingRemote(this._client);
+
   @override
   Stream<CharactersEntity> getCharacters(int page) async* {
     final response =

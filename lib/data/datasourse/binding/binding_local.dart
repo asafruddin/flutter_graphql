@@ -4,6 +4,8 @@ import 'package:flutter_graphql_architecture/domain/entity/character_entity/char
 import 'package:flutter_graphql_architecture/storage/local_storage.dart';
 
 class BindingLocal implements BindingDataSources {
+  /// [BindingLocal] getting data from local
+  /// required local storage [SharedPrefferences]
   final SharedPrefs? prefs;
 
   BindingLocal(this.prefs);

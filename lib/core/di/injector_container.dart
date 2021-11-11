@@ -8,42 +8,51 @@ import 'package:flutter_graphql_architecture/data/repositories/characters_repoit
 import 'package:flutter_graphql_architecture/domain/repositories/characters_repository.dart';
 import 'package:flutter_graphql_architecture/domain/use_case/characters/get_character_detail_usecase.dart';
 import 'package:flutter_graphql_architecture/domain/use_case/characters/get_characters_use_case.dart';
+import 'package:flutter_graphql_architecture/env/config.dart';
 import 'package:flutter_graphql_architecture/storage/local_storage.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 Future<void> init() async {
-  /// initialisation local storage
+  /// initiation local storage
+  ///
+  late final config = Config.getInstance();
   final prefs = await SharedPrefs.getInstance();
 
-  /// initialization graphql services [network]
-  final gqlService = GraphQlServices();
+  /// [networkConfig]
+  /// register for environment (flavor)
+  sl.registerLazySingleton(() => config);
 
-  ///register local storage
+  /// [local]
+  ///register for local storage
   sl.registerLazySingleton(() => prefs);
 
+  /// initiation graphql services [network]
+  final gqlService = GraphQlServices(sl());
+
+  /// [client]
   /// register GraphQL services
   sl.registerLazySingleton(() => gqlService);
 
-  /// binding datasources
-  /// [localData]
+  /// [datasources]
+  /// handle the source data that come from local storage
   sl.registerFactory(() => BindingLocal(sl()));
 
-  /// [networkData]
+  /// handle the source data that come from network or server
   sl.registerFactory(() => BindingRemote(sl()));
 
-  /// data sources
+  /// collecting the data sources
   sl.registerFactory(
       () => BindingDataSourceFactory(bindingRemote: sl(), bindingLocal: sl()));
 
-  /// repository
+  /// handle the data repository
   sl.registerFactory<CharactersRepository>(() => CharacterRepositoryImpl(sl()));
 
-  /// use case
+  /// [useCase]
   sl.registerFactory(() => GetCharactersUseCase(sl()));
   sl.registerFactory(() => GetCharacterDetailUseCase(sl()));
 
-  /// bloc
+  /// [bloc]
   sl.registerFactory(() => GetCharactersBloc(sl()));
   sl.registerFactory(() => GetCharacterDetailBloc(sl()));
 }

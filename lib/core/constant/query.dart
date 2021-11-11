@@ -1,6 +1,8 @@
 class Query {
   Query._();
 
+  /// [performForQuery]
+  /// get the character list
   static const characters = r'''
   query characters($page: Int){
   characters(page: $page){
@@ -25,6 +27,7 @@ class Query {
   }
   ''';
 
+  /// get the character detail
   static const detailCharacter = r'''
   query character($id: ID!) {
   character(id: $id){
@@ -61,4 +64,7 @@ class Query {
     }
   }
   ''';
+
+  ///[performForMutation]
+  ///
 }
