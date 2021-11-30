@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_graphql_architecture/bloc/characters/get_character_detail_bloc.dart';
 import 'package:flutter_graphql_architecture/core/di/injector_container.dart';
 import 'package:flutter_graphql_architecture/domain/entity/character_entity/character_detail.dart';
+import 'package:flutter_graphql_architecture/view/character/det_location/detail_location.dart';
+import 'package:get/get.dart';
 
 class DetailCharacters extends StatefulWidget {
   const DetailCharacters({Key? key, required this.id}) : super(key: key);
@@ -14,6 +16,10 @@ class DetailCharacters extends StatefulWidget {
 
 class _DetailCharactersState extends State<DetailCharacters> {
   final detailCharacterBloc = sl<GetCharacterDetailBloc>();
+
+  onLocationPress(String id) {
+    Get.bottomSheet(DetailLocation(idLocation: id));
+  }
 
   @override
   void initState() {
@@ -56,13 +62,24 @@ class _DetailCharactersState extends State<DetailCharacters> {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           ListTile(
-              trailing: Text(snapshot.data!.character!.location!.name!,
-                  style: Theme.of(context).textTheme.subtitle1),
+              trailing: TextButton(
+                onPressed: snapshot.data!.character!.location?.id == null
+                    ? null
+                    : () => onLocationPress(
+                        snapshot.data!.character!.location!.id!),
+                child: Text(snapshot.data!.character!.location!.name!,
+                    style: Theme.of(context).textTheme.subtitle1),
+              ),
               title:
                   Text('Location', style: Theme.of(context).textTheme.caption)),
           ListTile(
-              trailing: Text(snapshot.data!.character!.origin!.name!,
-                  style: Theme.of(context).textTheme.subtitle1),
+              trailing: TextButton(
+                  onPressed: snapshot.data!.character!.origin?.id == null
+                      ? null
+                      : () => onLocationPress(
+                          snapshot.data!.character!.origin!.id!),
+                  child: Text(snapshot.data!.character!.origin!.name!,
+                      style: Theme.of(context).textTheme.subtitle1)),
               title:
                   Text('Origin', style: Theme.of(context).textTheme.caption)),
           ListTile(

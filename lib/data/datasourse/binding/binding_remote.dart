@@ -5,6 +5,8 @@ import 'package:flutter_graphql_architecture/data/model/response/characters/char
 import 'package:flutter_graphql_architecture/data/model/response/characters/characters_model.dart';
 import 'package:flutter_graphql_architecture/domain/entity/character_entity/character_detail.dart';
 import 'package:flutter_graphql_architecture/domain/entity/character_entity/characters_entity.dart';
+import 'package:flutter_graphql_architecture/domain/entity/location/location_detail_entity.dart';
+import 'package:flutter_graphql_architecture/data/model/response/location/location_detail_model.dart';
 
 class BindingRemote implements BindingDataSources {
   /// [BindingRemote] for geting data from network
@@ -25,5 +27,12 @@ class BindingRemote implements BindingDataSources {
     final response = await _client
         .performQuery(Query.detailCharacter, variables: {"id": id});
     yield CharacterDetailModel.fromJson(response.data!);
+  }
+
+  @override
+  Stream<LocationDetailEntity> getLocationDetail(String id) async* {
+    final response =
+        await _client.performQuery(Query.locationDetail, variables: {"id": id});
+    yield LocationDetailModel.fromJson(response.data!);
   }
 }

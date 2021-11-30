@@ -65,6 +65,18 @@ class Query {
   }
   ''';
 
+  /// get location detail
+  static const locationDetail = r'''
+  query location($id: ID!){
+  location(id: $id){
+    id
+    name
+    type
+    dimension
+    }
+  }
+  ''';
+
   ///[performForMutation]
   ///
 }
